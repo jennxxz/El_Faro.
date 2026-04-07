@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>El Faro - Noticias Actualizadas</title>
+  <!-- 1.a. Importación de tipografía externa desde Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* 2. Aplicar un fondo gris para toda la página */
+    body {
+      background-color: #f5f5f5;
+      /* 1. Aplicar nueva tipografía (tipo de fuente) para todos los elementos */
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Estilos para el encabezado */
+    header {
+      background-color: #ffffff; /* Fondo blanco para el encabezado */
+      text-align: center;
+      padding: 20px 0;
+      /* 1. Aplicar tipografía específica para el encabezado */
+      font-family: 'Roboto Slab', serif;
+    }
+
+    header h1 {
+      font-size: 40px; /* Tamaño de fuente más grande para el título principal */
+      margin-bottom: 10px;
+    }
+
+    header img {
+      width: 120px; /* Ajuste del tamaño del logo */
+      height: auto;
+    }
+
+    /* Estilos para la navegación */
+    nav {
+      background-color: #c9d2d0; /* Color de fondo del footer aplicado a la navegación */
+      text-align: center;
+      padding: 15px 0;
+      margin-top: 20px; /* Espacio entre el encabezado y la navegación */
+    }
+
+    nav a {
+      color: #31231e; /* Color de letra del footer aplicado a los enlaces de navegación */
+      text-decoration: none; /* Quitar subrayado por defecto */
+      margin: 0 15px; /* Espacio entre enlaces */
+      font-weight: bold; /* Fuente en negrita para los enlaces de navegación */
+      transition: all 0.3s ease; /* Transición suave para efectos */
+    }
+
+    /* 6. Aplicar estilo de fuente en Negrita, cuando se ubica el cursor encima de cada vínculo */
+    nav a:hover {
+      font-weight: 700; /* Negrita más pronunciada */
+      text-decoration: underline; /* Mantener subrayado cuando el mouse está encima */
+    }
+
+    /* 3. Mostrar los artículos como una grilla de bloques */
+    /* Uso de CSS Grid para la disposición de los artículos */
+    .articles-grid {
+      display: grid;
+      /* Configuración de la grilla: 3 columnas por defecto, con ancho flexible */
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px; /* Espacio entre los bloques de artículos */
+      padding: 20px;
+      max-width: 1200px; /* Ancho máximo del contenedor de la grilla */
+      margin: 20px auto; /* Centrar la grilla */
+    }
+
+    /* Estilos para cada bloque de artículo */
+    .article-block {
+      background-color: white; /* 2.a. Los artículos deben mantener un fondo blanco */
+      border-radius: 8px; /* Bordes redondeados para los bloques */
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil para dar profundidad */
+      transition: all 0.3s ease; /* Transición suave para el efecto hover */
+      display: flex; /* Usar Flexbox para organizar el contenido interno */
+      flex-direction: column; /* Contenido en columna */
+      justify-content: space-between; /* Espacio entre título y texto */
+    }
+
+    /* 4. Al ubicar el mouse encima de un bloque, aplicar los siguientes estilos */
+    .article-block:hover {
+      background-color: black; /* 4.a. Fondo negro */
+      color: white; /* 4.b. Letra color blanco */
+      cursor: pointer; /* Cambiar cursor a pointer para indicar interactividad */
+    }
+
+    .article-block h3 {
+      font-family: 'Roboto Slab', serif; /* Tipografía específica para títulos de artículo */
+      font-size: 24px;
+      margin-top: 0;
+      margin-bottom: 15px;
+      /* Hereda el color del bloque, que cambia a blanco en hover */
+    }
+
+    .article-block .category {
+      font-style: italic;
+      font-size: 14px;
+      color: #666; /* Color gris para la categoría */
+      margin-bottom: 10px;
+      display: block; /* Asegura que la categoría esté en su propia línea */
+    }
+
+    .article-block p {
+      font-size: 16px;
+      line-height: 1.6;
+      /* Hereda el color del bloque, que cambia a blanco en hover */
+    }
+
+    /* Estilos para video y audio */
+    video, audio {
+      display: block;
+      margin: 20px auto; /* Centrar video y audio */
+      width: 80%;
+      max-width: 700px; /* Ancho máximo */
+      border-radius: 8px; /* Bordes redondeados */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+    }
+
+    h2 {
+      font-family: 'Roboto Slab', serif;
+      text-align: center;
+      font-size: 32px;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    h3 {
+      font-family: 'Roboto Slab', serif;
+      text-align: center;
+      font-size: 26px;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    /* 5. Aplicar estilo de distinto al footer del sitio */
+    footer {
+      background-color: #c9d2d0; /* 5.a. Color de Fondo */
+      color: #31231e; /* 5.b. Color de Letra */
+      text-align: center;
+      padding: 25px 0;
+      margin-top: 40px; /* Espacio sobre el footer */
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    /* Responsividad: Ajustes para pantallas pequeñas */
+    @media screen and (max-width: 768px) {
+      /* 3. Vista de los artículos en una sola columna para pantallas pequeñas */
+      .articles-grid {
+        grid-template-columns: 1fr; /* Una sola columna */
+        padding: 15px;
+      }
+
+      header h1 {
+        font-size: 30px; /* Reducir tamaño de fuente del título */
+      }
+
+      h2 {
+        font-size: 28px; /* Reducir tamaño de encabezados */
+      }
+
+      h3 {
+        font-size: 22px;
+      }
+
+      nav a {
+        display: block; /* Cada enlace en una línea */
+        margin: 10px 0; /* Espacio vertical entre enlaces */
+      }
+    }
+
+    /* Estilos adicionales para la tabla (si se mantuvieran) */
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra para la tabla */
+      background-color: white; /* Fondo blanco para la tabla */
+    }
+    th, td {
+      border: 1px solid #ddd; /* Borde más suave */
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #e0e0e0; /* Gris más claro para encabezados */
+      font-family: 'Roboto Slab', serif; /* Tipografía para encabezados de tabla */
+      font-weight: bold;
+    }
+    td {
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    /* Estilos específicos para el texto del artículo dentro de la tabla (si se usa) */
+    td:nth-child(3) {
+      font-size: 14px;
+      color: #555;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- PORTADA -->
+  <header>
+    <h1>El Faro</h1>
+    <!-- Asegúrate que el archivo de imagen se llame 3.png -->
+    <img src="3.png" alt="Logo de El Faro">
+  </header>
+
+  <!-- MENU DE NAVEGACIÓN -->
+  <nav>
+    <a href="#inicio">Inicio</a>
+    <a href="#deporte">Deporte</a>
+    <a href="#negocios">Negocios</a>
+    <!-- Se podría añadir un enlace a la sección de video/audio si se desea -->
+  </nav>
+
+  <!-- SECCIÓN DE NOTICIAS GENERALES -->
+  <section id="inicio">
+    <h2>Noticias Generales</h2>
+    <!-- Contenedor para la grilla de artículos -->
+    <div class="articles-grid">
+
+      <!-- Bloque de Artículo 1 -->
+      <div class="article-block">
+        <h3>Avances fuertes en inteligencia artificial</h3>
+        <span class="category">Tecnología</span>
+        <p>La inteligencia artificial continúa avanzando rápidamente y está siendo utilizada en distintas áreas para mejorar procesos y servicios.</p>
+      </div>
+
+      <!-- Bloque de Artículo 2 -->
+      <div class="article-block">
+        <h3>Brecha salarial sigue siendo tema fuerte</h3>
+        <span class="category">Sociedad</span>
+        <p>La diferencia de ingresos entre hombres y mujeres sigue siendo un tema importante y genera debate en distintos países.</p>
+      </div>
+
+      <!-- Bloque de Artículo 3 -->
+      <div class="article-block">
+        <h3>El cambio climático sigue avanzando</h3>
+        <span class="category">Medioambiente</span>
+        <p>El cambio climático continúa afectando al planeta con altas temperaturas, sequías y cambios en el entorno natural.</p>
+      </div>
+
+    </div> <!-- Fin de .articles-grid -->
+
+    <!-- VIDEO -->
+    <h3>Video</h3>
+    <!-- Asegúrate que el archivo de video se llame 1.mp4 -->
+    <video controls loop>
+      <source src="1.mp4" type="video/mp4">
+      Tu navegador no soporta video.
+    </video>
+
+    <!-- AUDIO -->
+    <h3>Audio</h3>
+    <!-- Asegúrate que el archivo de audio se llame 1.mp3 -->
+    <audio controls loop>
+      <source src="2.mp3" type="audio/mpeg">
+      Tu navegador no soporta audio.
+    </audio>
+  </section>
+
+  <!-- SECCIÓN DE DEPORTE -->
+  <section id="deporte">
+    <h2>Noticias de Deporte</h2>
+    <div class="articles-grid">
+
+      <!-- Bloque de Artículo 4 (Deporte) -->
+      <div class="article-block">
+        <h3>Chile destaca en patinaje artístico internacional</h3>
+        <span class="category">Deporte</span>
+        <p>Representantes chilenos obtuvieron buenos resultados en competencias internacionales de patinaje artístico.</p>
+      </div>
+      <!-- Se pueden añadir más artículos de deporte aquí -->
+
+    </div> <!-- Fin de .articles-grid -->
+  </section>
+
+  <!-- SECCIÓN DE NEGOCIOS -->
+  <section id="negocios">
+    <h2>Noticias de Negocios</h2>
+    <div class="articles-grid">
+
+      <!-- Bloque de Artículo 5 (Negocios) -->
+      <div class="article-block">
+        <h3>Emprendimientos digitales siguen creciendo</h3>
+        <span class="category">Emprendimiento</span>
+        <p>Los emprendimientos digitales continúan creciendo gracias al uso de internet y nuevas plataformas de venta.</p>
+      </div>
+
+      <!-- Bloque de Artículo 6 (Negocios) -->
+      <div class="article-block">
+        <h3>Redes sociales impulsan ventas</h3>
+        <span class="category">Marketing</span>
+        <p>Muchos negocios pequeños utilizan redes sociales para mostrar sus productos y aumentar sus ventas.</p>
+      </div>
+
+      <!-- Bloque de Artículo 7 (Negocios) -->
+      <div class="article-block">
+        <h3>Mujeres ganan terreno en tecnología y startups</h3>
+        <span class="category">Innovación</span>
+        <p>Cada vez más mujeres participan en el desarrollo de proyectos tecnológicos y nuevos emprendimientos.</p>
+      </div>
+
+    </div> <!-- Fin de .articles-grid -->
+  </section>
+
+  <!-- PIE DE PÁGINA -->
+  <footer>
+    <p>El Faro - Noticias Actualizadas</p>
+  </footer>
+
+</body>
+</html>
